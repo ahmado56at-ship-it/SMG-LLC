@@ -1,29 +1,27 @@
 services:
   - type: web
     name: security-guard-frontend
-    runtime: static
-    buildCommand: npm install --legacy-peer-deps && npm run build
-    staticPublishPath: ./build
+    runtime: node
+    buildCommand: npm install --legacy-peer-deps && NODE_OPTIONS=--max-old-space-size=2048 npm run build
+    startCommand: PORT=3000 npm install -g serve && serve -s build -l 3000
     envVars:
       - key: NODE_VERSION
         value: 22.22.0
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=2048
       - key: REACT_APP_API_URL
-        value: https://security-guard-backend.onrender.com
+        value: https://security-guard-backend-w3qv.onrender.com/api
       - key: REACT_APP_SOCKET_URL
-        value: https://security-guard-backend.onrender.com
+        value: https://security-guard-backend-w3qv.onrender.com
       - key: REACT_APP_APP_NAME
         value: Security Guard Management
       - key: REACT_APP_ENV
         value: production
       - key: GENERATE_SOURCEMAP
-        value: false
+        value: "false"
       - key: REACT_APP_ENABLE_FACIAL_RECOGNITION
-        value: true
+        value: "true"
       - key: REACT_APP_ENABLE_GEOLOCATION
-        value: true
+        value: "true"
       - key: REACT_APP_ENABLE_NOTIFICATIONS
-        value: true
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+        value: "true"
