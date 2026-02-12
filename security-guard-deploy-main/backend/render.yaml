@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: security-guard-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: node --max-old-space-size=1024 src/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
